@@ -3,7 +3,7 @@ import React from "react";
 import { faker } from "@faker-js/faker";
 
 import D3Wrapper from "./d3_wrapper";
-import LineChart from "./d3_line_chart";
+import D3LineChart from "./d3_line_chart";
 
 function App() {
   const [width, height] = [800, 533];
@@ -26,7 +26,7 @@ function App() {
         height={height}
         xAxisLabel={"x axis label"}
         yAxisLabels={"y axis label"}
-        d3ComponentClass={LineChart}
+        d3ComponentClass={D3LineChart}
       />
     </div>
   );

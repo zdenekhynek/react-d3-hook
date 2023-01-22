@@ -2,7 +2,7 @@
 
 An example of a React component to help use D3 components within a React application in an organised manner. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Install
+## Setup 
 
 ```
 npm install
@@ -30,10 +30,24 @@ You don't need D3 to manage DOM if:
 
 ## Usage
 
+`
+
+```
+import D3Wrapper from "./d3_wrapper";
+import D3LineChart from "./d3_line_chart";
+
+<D3Wrapper
+  wrapperEl="svg"
+  data={data}
+  width={width}
+  height={height}
+  xAxisLabel={"x axis label"}
+  yAxisLabels={"y axis label"}
+  d3ComponentClass={3LineChart}
+/>
+
+```
+
 ## License
 
 MIT
-
-## References
-
-https://github.com/rehooks/awesome-react-hooks
