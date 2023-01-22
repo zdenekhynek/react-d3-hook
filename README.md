@@ -1,4 +1,4 @@
-# React-d3-hook
+# react-d3-hook
 
 A React hook to help use D3 components within a React application in an organised manner.
 
