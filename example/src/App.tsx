@@ -29,7 +29,6 @@ function App() {
         height={height}
         xAxisLabel={"x axis label"}
         yAxisLabels={"y axis label"}
-        //  @ts-ignore
         d3ComponentClass={LineChart}
       />
     </div>
