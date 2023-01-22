@@ -1,0 +1,22 @@
+{
+  "name": "react-d3-hook",
+  "version": "1.0.0",
+  "description": "A React hook to help use D3 components within a React application in an organised manner.",
+  "main": "index.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zdenekhynek/react-d3-hook.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zdenekhynek/react-d3-hook/issues"
+  },
+  "homepage": "https://github.com/zdenekhynek/react-d3-hook#readme"
+}

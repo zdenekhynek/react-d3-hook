@@ -36,3 +36,7 @@ You don't need D3 to manage DOM if:
 ## License
 
 MIT
+
+## References
+
+https://github.com/rehooks/awesome-react-hooks
