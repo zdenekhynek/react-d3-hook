@@ -1,7 +1,7 @@
 {
-  "name": "react-d3-hook",
+  "name": "react-d3-wrapper",
   "version": "1.0.0",
-  "description": "A React hook to help use D3 components within a React application in an organised manner.",
+  "description": "A React component wrapper to help use D3 components within a React application in an organised manner.",
   "main": "index.js",
   "directories": {
     "example": "example"
