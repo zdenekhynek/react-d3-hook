@@ -2,10 +2,8 @@ import React from "react";
 
 import { faker } from "@faker-js/faker";
 
-import D3Wrapper from "react-d3-wrapper/lib/esm/d3_wrapper";
-
-//  import D3Wrapper from "./d3_wrapper";
-import LineChart from "./line_chart";
+import D3Wrapper from "./d3_wrapper";
+import LineChart from "./d3_line_chart";
 
 function App() {
   const [width, height] = [800, 533];

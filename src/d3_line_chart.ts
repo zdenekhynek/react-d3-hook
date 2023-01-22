@@ -1,5 +1,5 @@
 import { Selection, select } from "d3-selection";
-import { line, curveBasis } from "d3-shape";
+import { line } from "d3-shape";
 import { NumberValue, ScaleLinear, scaleLinear } from "d3-scale";
 import { min, max } from "d3-array";
 import { Axis, axisBottom, axisLeft } from "d3-axis";
@@ -22,7 +22,7 @@ export interface IProps {
   onMouseOut: Function;
 }
 
-class LineChart {
+export default class D3LineChart {
   container: SVGSVGElement;
   wrapper: Selection<SVGGElement, any, null, undefined>;
   svg: Selection<SVGSVGElement, any, null, undefined>;
@@ -180,5 +180,3 @@ class LineChart {
     this.updateData();
   }
 }
-
-export default LineChart;

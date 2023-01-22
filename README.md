@@ -1,17 +1,17 @@
-# react-d3-hook
+# react-d3-wrapper
 
-A React hook to help use D3 components within a React application in an organised manner.
+An example of a React component to help use D3 components within a React application in an organised manner. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Install
 
 ```
-npm install react-d3-hook
+npm install
 ```
 
 or
 
 ```
-yarn add react-d3-hook
+yarn install
 ```
 
 ## When to use 
@@ -20,18 +20,15 @@ In general, you should try to avoid using D3 data binding to modify DOM when dev
 
 You might DO want D3 to manage DOM within the React applications if:
 
-- you need nice transitions between data updates, especiallly when working with svg paths and polylines and whenever simple CSS transitions/animations won't cut it
-- working with axes
-- having complex nested data where creating React components might end up more complicated then using D3 nested selection 
+* you need nice transitions between data updates, especiallly when working with svg paths and polylines and whenever simple CSS transitions/animations won't cut it
+* working with axes
+* having complex nested data where creating React components might end up more complicated then using D3 nested selection 
 
 You don't need D3 to manage DOM if:
 
-- you want to use it's layout or scale functions or any other utils. These can be used effectively as any other util function within React components where React renders output of theses functions.
+* you want to use it's layout or scale functions or any other utils. These can be used effectively as any other util function within React components where React renders output of theses functions.
 
 ## Usage
-
-
-## Examples
 
 ## License
 
