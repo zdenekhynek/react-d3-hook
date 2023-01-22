@@ -2,11 +2,16 @@
   "name": "react-d3-wrapper",
   "version": "1.0.0",
   "description": "A React component wrapper to help use D3 components within a React application in an organised manner.",
-  "main": "index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./lib/esm/index.d.ts",
   "directories": {
     "example": "example"
   },
   "scripts": {
+    "build": "npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc",
+    "build:cjs": "tsc --module commonjs --outDir lib/cjs",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +23,15 @@
   "bugs": {
     "url": "https://github.com/zdenekhynek/react-d3-hook/issues"
   },
-  "homepage": "https://github.com/zdenekhynek/react-d3-hook#readme"
+  "homepage": "https://github.com/zdenekhynek/react-d3-hook#readme",
+  "peerDependencies": {
+    "react": "^16.8.6 || ^17 || ^18",
+    "react-dom": "^16.8.6 || ^17 || ^18"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "typescript": "^4.9.4"
+  }
 }

@@ -2,10 +2,9 @@ import React from "react";
 
 import { faker } from "@faker-js/faker";
 
-//  @ts-ignore
-// import { useD3 } from "react-d3-hook";
-// import { useD3 } from "./react-d3-hook/use-d3";
-import D3Wrapper from "./d3_wrapper";
+import D3Wrapper from "react-d3-wrapper/lib/esm/d3_wrapper";
+
+//  import D3Wrapper from "./d3_wrapper";
 import LineChart from "./line_chart";
 
 function App() {

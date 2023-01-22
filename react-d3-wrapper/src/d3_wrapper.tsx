@@ -1,4 +1,10 @@
-import { LegacyRef, useCallback, useEffect, useRef, useState } from "react";
+import React, {
+  LegacyRef,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 
 export interface ID3WrapperProps {
   wrapperEl: any;
