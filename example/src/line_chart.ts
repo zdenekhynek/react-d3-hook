@@ -1,41 +1,89 @@
-import { select } from "d3-selection";
+import { Selection, select } from "d3-selection";
 import { line, curveBasis } from "d3-shape";
-import { scaleLinear } from "d3-scale";
+import { NumberValue, ScaleLinear, scaleLinear } from "d3-scale";
 import { min, max } from "d3-array";
-import { axisBottom, axisLeft } from "d3-axis";
+import { Axis, axisBottom, axisLeft } from "d3-axis";
 
 export const MARGIN = { top: 15, right: 90, bottom: 60, left: 90 };
 
+export interface IDatum {
+  x: number;
+  y: number;
+}
+
+export interface IProps {
+  width: number;
+  height: number;
+  data: IDatum[];
+  xAxisLabel: string;
+  yAxisLabel: string;
+  onMouseOver: Function;
+  onMouseMove: Function;
+  onMouseOut: Function;
+}
+
 class LineChart {
-  container: any;
-  props: any;
-  svg: any;
-  xDomain: any;
-  xScale: any;
-  xScaleDomain: any;
-  xAxisFn: any;
-  yScale: any;
-  yDomain: any;
-  yAxisFn: any;
-  yRightDomain: any;
-  yRightAxisFn: any;
-  wrapper: any;
+  container: SVGSVGElement;
+  wrapper: Selection<SVGGElement, any, null, undefined>;
+  svg: Selection<SVGSVGElement, any, null, undefined>;
+  xDomain: [number, number];
+  xScale: ScaleLinear<number, any>;
+  xAxisFn: Axis<NumberValue>;
+  yScale: ScaleLinear<number, number>;
+  yDomain: [number, number];
+  yAxisFn: Axis<NumberValue>;
+  props: IProps;
 
   constructor(container: any, props: any) {
     this.container = container;
     this.props = props;
     this.svg = select(container);
 
-    this.xDomain = null;
-    this.xScale = null;
-    this.xScaleDomain = null;
-    this.xAxisFn = null;
+    this.xDomain = [0, 0];
+    this.xScale = scaleLinear();
+    this.xAxisFn = axisBottom(this.xScale);
 
-    this.yScale = null;
-    this.yDomain = null;
-    this.yAxisFn = null;
+    this.yDomain = [0, 0];
+    this.yScale = scaleLinear();
+    this.yAxisFn = axisLeft(this.yScale);
 
     this.wrapper = this.svg.append("g").attr("class", "wrapper");
+  }
+
+  onMouseOver(_: any, lineData: any) {
+    if (this.props.onMouseOver) {
+      if (typeof this.props.onMouseOver === "function") {
+        this.props.onMouseOver(lineData);
+      } else {
+        console.error(
+          `Linecharts onMouseOver prop should be callable, got: ${this.props.onMouseOver}`
+        );
+      }
+    }
+  }
+
+  onMouseMove(_: any, lineData: any) {
+    if (this.props.onMouseMove) {
+      if (typeof this.props.onMouseMove === "function") {
+        this.props.onMouseMove(lineData);
+      } else {
+        console.error(
+          `Linecharts onMouseMove prop should be callable, got: ${this.props.onMouseMove}`
+        );
+      }
+    }
+  }
+
+  onMouseOut() {
+    if (this.props.onMouseOut) {
+      if (typeof this.props.onMouseOut === "function") {
+        this.props.onMouseOut();
+      } else {
+        console.error(
+          `Linecharts onMouseOut prop should be callable, got: ${this.props.onMouseOut}`
+        );
+      }
+    }
   }
 
   updateData() {
@@ -51,19 +99,22 @@ class LineChart {
     this.wrapper.attr("transform", translateString);
     this.wrapper.attr("width", vizWidth).attr("height", vizHeight);
 
-    this.xDomain = [min(data, (d: any) => d.x), max(data, (d: any) => d.x)];
+    this.xDomain = [
+      min(data, (d: IDatum) => d.x) || 0,
+      max(data, (d: IDatum) => d.x) || 0,
+    ];
     this.xScale = scaleLinear().domain(this.xDomain).range([0, vizWidth]);
 
     this.yDomain = [0, max(data, (d: any) => d.y)];
     this.yScale = scaleLinear().domain(this.yDomain).range([vizHeight, 0]);
 
     const sel = this.wrapper.selectAll(".line").data([data]);
-    const selEnter = sel.enter().append("g").attr("class", "line");
+    const selEnter: any = sel.enter().append("g").attr("class", "line");
     selEnter.append("path").attr("class", "lineGraphic");
 
-    // selEnter.on("mouseover", this.onMouseOver.bind(this));
-    // selEnter.on("mousemove", this.onMouseMove.bind(this));
-    // selEnter.on("mouseout", this.onMouseOut.bind(this));
+    selEnter.on("mouseover", this.onMouseOver.bind(this));
+    selEnter.on("mousemove", this.onMouseMove.bind(this));
+    selEnter.on("mouseout", this.onMouseOut.bind(this));
 
     const selMerge = sel.merge(selEnter);
     selMerge
@@ -71,10 +122,11 @@ class LineChart {
       // .transition()
       .attr(
         "d",
-        line()
-          .curve(curveBasis)
-          .x((d: any) => this.xScale(d.x))
-          .y((d: any) => this.yScale(d.y))
+        line(
+          (d) => this.xScale(d.x),
+          (d) => this.yScale(d.y)
+        )
+        // .curve(curveBasis)
       )
       .style("stroke", "purple")
       .style("fill", "none");
@@ -106,15 +158,15 @@ class LineChart {
         .attr("x", 0 - vizHeight / 2)
         .attr("dy", "1em")
         .style("text-anchor", "middle")
-        .text(this.props.yAxisLabels[0]);
+        .text(this.props.yAxisLabel);
     }
 
     this.xAxisFn = axisBottom(this.xScale).tickSize(-vizHeight);
-    this.wrapper.selectAll("g.x-axis").call(this.xAxisFn);
+    this.wrapper.selectAll("g.x-axis").call(this.xAxisFn as any);
     this.wrapper.select("text.x-axis-label").attr("x", vizWidth / 2);
 
     this.yAxisFn = axisLeft(this.yScale).tickSize(-vizWidth);
-    this.wrapper.selectAll("g.y-axis-left").call(this.yAxisFn);
+    this.wrapper.selectAll("g.y-axis-left").call(this.yAxisFn as any);
     this.wrapper.selectAll("g.y-axis-left .tick text").attr("x", "-7");
   }
 
