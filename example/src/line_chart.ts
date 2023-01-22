@@ -126,7 +126,7 @@ class LineChart {
           (d) => this.xScale(d.x),
           (d) => this.yScale(d.y)
         )
-        // .curve(curveBasis)
+        //.curve(curvexBasis)
       )
       .style("stroke", "purple")
       .style("fill", "none");
